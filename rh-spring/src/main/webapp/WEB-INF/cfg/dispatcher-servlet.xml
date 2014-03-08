@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	
+	<!-- Resources bundles -->
+	<bean id="messageSource"
+			class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames" value="br.eti.hmagalhaes.rh.res.messages,
+				br.eti.hmagalhaes.rh.res.validation"/>
+	</bean>
+	
+	
+	<!-- Validators -->
+	<bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource">
+			<ref bean="messageSource"/>
+		</property>
+	</bean>
+	 
+	
+	<!-- Converters -->
+	<bean id="conversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="br.eti.hmagalhaes.rh.model.converter.StringParaDateConverter"/>
+				<bean class="br.eti.hmagalhaes.rh.model.converter.DateParaStringConverter"/>
+				<bean class="br.eti.hmagalhaes.rh.model.converter.DepartamentoEntityParaFormDTO"/>
+				<bean class="br.eti.hmagalhaes.rh.model.converter.DepartamentoFormDTOParaEntity"/>
+				<bean class="br.eti.hmagalhaes.rh.model.converter.DepartamentoStringParaEntity"/>
+				<bean class="br.eti.hmagalhaes.rh.model.converter.DepartamentoEntityParaString"/>
+				<bean class="br.eti.hmagalhaes.rh.model.converter.ColaboradorEntityParaFormDTO"/>
+				<bean class="br.eti.hmagalhaes.rh.model.converter.ColaboradorFormDTOParaEntity"/>
+			</list>
+		</property>
+	</bean>
+	
+		 
+    <mvc:annotation-driven conversion-service="conversionService"/>
+	
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="br.eti.hmagalhaes.rh"/>
+
+	
+	<import resource="persistence/config.xml"/>
+	
+		
+	<bean id="localeResolver"
+		  class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="pt_BR" />
+	</bean>
+
+
+	<!-- View resolver: Apache Tiles -->
+	<bean id="tilesConfigurer"
+			class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions" value="/WEB-INF/cfg/tiles-cfg.xml"/>
+	</bean>
+	<bean id="viewResolver"
+			class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+				  value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	</bean>
+
+
+	<!-- redirecionamentos -->
+	<mvc:view-controller path="/" view-name="redirect:/departamento"/>
+
+
+	<!-- recursos estáticos sem processamento -->
+	<mvc:resources mapping="/style/**" location="/style/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+</beans>
