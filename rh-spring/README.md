@@ -1,7 +1,7 @@
 rh-spring
 =====
 
-Implementação do exemplo baseado no Spring Framework.  
+Implementação do [exemplo](https://github.com/hmagalhaes/exemplo-rh), baseada no Spring Framework.  
 
 Dentre as tecnologias usadas, estão as seguintes:  
 
