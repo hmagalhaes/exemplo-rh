@@ -1,7 +1,7 @@
 exemplo-rh
 ==========
 
-Exemplo de uma simples aplicação web em Java para gestão de recursos humanos.
+Exemplo de uma aplicação web em Java para gestão de recursos humanos.
 
 
 ##Modelo
@@ -10,4 +10,4 @@ Neste caso, um colaborador sempre está relacionado a um único departamento, e 
 Deve ser possível ainda visualizar todos os departamentos vazios, além de contornar a situação da remoção de um departamento com colaboradores.
 
 ##Implementação
-Inicialmente está disponível um exemplo usando [Spring Framework](rh-spring).
+Inicialmente está disponível um exemplo usando [Spring Framework](rh-spring), contemplando suporte a internacionalização.
